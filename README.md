@@ -25,14 +25,14 @@ A personalized voice assistant that tracks your cat using Tractive GPS, with sem
                       │ Audio/WebSocket
                       ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                     FastAPI Server                               │
-│                      (api.py)                                    │
+│                     FastAPI Server                              │
+│                      (api.py)                                   │
 ├─────────────────────────────────────────────────────────────────┤
-│  /chat/          - Voice input → Voice output                    │
+│  /chat/          - Voice input → Voice output                   │
 │  /api/voice-query/ - Text input → Text output                   │
 │  /ranni/location/  - Direct GPS lookup                          │
 │  /ranni/raw/       - Raw coordinates for calibration            │
-│  /zones/           - Zone CRUD operations                        │
+│  /zones/           - Zone CRUD operations                       │
 └─────────────────────┬───────────────────────────────────────────┘
                       │
         ┌─────────────┼─────────────┬─────────────┐
@@ -59,8 +59,6 @@ Local Voice Agent/
 ├── location_rag.py     # Location RAG system with polygon zones
 ├── static/
 │   └── index.html      # Push-to-talk web interface
-├── ranni_location_db/  # ChromaDB persistent storage (auto-created)
-│   └── zones.json      # Zone polygon definitions
 └── README.md
 ```
 
@@ -396,4 +394,4 @@ MIT License - See LICENSE file for details.
 
 ---
 
-*"Ranni... home safe... A trifling victory, but a victory nonetheless."* - The Ancestor
+*"A trifling victory, but a victory nonetheless."* - The Ancestor
