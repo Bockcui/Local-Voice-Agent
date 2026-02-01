@@ -19,8 +19,8 @@ A personalized voice assistant that tracks your cat using Tractive GPS, with sem
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                        Web Interface                             │
-│                   (Push-to-Talk Button)                          │
+│                        Web Interface                            │
+│                   (Push-to-Talk Button)                         │
 └─────────────────────┬───────────────────────────────────────────┘
                       │ Audio/WebSocket
                       ▼
