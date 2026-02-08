@@ -46,7 +46,7 @@ A personalized voice assistant that tracks your cat using Tractive GPS, with sem
               ┌─────────────┐           ┌─────────────┐
               │ Tool Router │           │ Location    │
               │             │◄─────────►│ RAG         │
-              └─────────────┘           │ (ChromaDB)  │
+              └─────────────┘           │ (LangChain) │
                                         └─────────────┘
 ```
 
@@ -85,7 +85,7 @@ Local Voice Agent/
    pip install openai-whisper
    pip install ollama
    pip install aiotractive
-   pip install chromadb shapely numpy
+   pip install geopandas langchain langchain-community langchain-huggingface sentence-transformers faiss-cpu numpy
    pip install transformers torch torchaudio
    ```
 
@@ -177,8 +177,8 @@ LocationZone(
    Response:
    ```json
    {
-     "latitude": 37.12345,
      "longitude": -122.12345,
+     "latitude": 37.12345,
      "polygon_format": "(-122.12345, 37.12345),  # (lon, lat)"
    }
    ```
@@ -348,8 +348,8 @@ Version mismatch between transformers and PyTorch:
 pip install transformers==4.40.0
 ```
 
-### ChromaDB deprecated settings error
-Use `PersistentClient` instead of the old `Client` with Settings (already fixed in code).
+### FAISS index not loading on restart
+Delete the `ranni_location_db/faiss_index/` directory and restart — it will be rebuilt from `zones.json`.
 
 ### Whisper FP16 warning
 Normal on CPU - Whisper falls back to FP32 automatically.
@@ -384,8 +384,9 @@ Coordinates: 37.123456, -122.123456"
 - [Ollama](https://ollama.ai/) - Local LLM inference
 - [OpenAI Whisper](https://github.com/openai/whisper) - Speech recognition
 - [Tractive](https://tractive.com/) - GPS pet tracking
-- [ChromaDB](https://www.trychroma.com/) - Vector database
-- [Shapely](https://shapely.readthedocs.io/) - Geometric operations
+- [LangChain](https://python.langchain.com/) - RAG framework and retriever abstraction
+- [GeoPandas](https://geopandas.org/) - Spatial data operations and polygon geofencing
+- [FAISS](https://github.com/facebookresearch/faiss) - Vector similarity search
 - Wayne June - The iconic Darkest Dungeon narrator voice
 
 ## 📄 License
@@ -393,5 +394,3 @@ Coordinates: 37.123456, -122.123456"
 MIT License - See LICENSE file for details.
 
 ---
-
-*"A trifling victory, but a victory nonetheless."* - The Ancestor

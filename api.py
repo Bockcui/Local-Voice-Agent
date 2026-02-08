@@ -149,7 +149,7 @@ async def api_info():
         "llm": "Llama 3.1 8B (Ollama)",
         "voice": "Wayne June clone (CosyVoice)",
         "cat": "Ranni",
-        "location_system": "ChromaDB + Shapely polygon geofencing",
+        "location_system": "LangChain FAISS + GeoPandas polygon geofencing",
         "zones_configured": len(rag.zones),
         "endpoints": {
             "/chat/": "POST - Audio input, audio output",

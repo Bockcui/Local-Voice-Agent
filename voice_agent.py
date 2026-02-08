@@ -5,7 +5,7 @@ Personalized setup:
 - Wayne June voice clone via CosyVoice
 - Local Ollama with Llama 3 8B
 - Tractive GPS tracking for Ranni the cat
-- Location RAG with vector search and polygon geofencing
+- Location RAG with LangChain FAISS search and GeoPandas polygon geofencing
 """
 
 import sys
@@ -99,8 +99,8 @@ async def get_tracker_location_async() -> Dict[str, Any]:
             
             return {
                 "success": True,
-                "latitude": latlong[0],
-                "longitude": latlong[1],
+                "longitude": latlong[0],
+                "latitude": latlong[1],
                 "accuracy_m": pos.get("pos_uncertainty", 0),
                 "speed_kmh": pos.get("speed", 0),
                 "altitude_m": pos.get("altitude", 0),
@@ -151,9 +151,8 @@ def get_ranni_location() -> str:
         if not result["success"]:
             return f"Alas, the scrying glass reveals naught but shadow. The tracking sigil has failed: {result.get('error', 'unknown error')}"
         
-        lat = result["latitude"]
         lon = result["longitude"]
-        battery = result["battery_level"]
+        lat = result["latitude"]
         accuracy = result["accuracy_m"]
         
         # Get rich context from LocationRAG
@@ -169,13 +168,6 @@ def get_ranni_location() -> str:
         # Add safety alert if present
         if context.safety_alert:
             response_parts.append(context.safety_alert)
-        
-        # Add battery warning if low
-        if isinstance(battery, (int, float)):
-            if battery < 20:
-                response_parts.append(f"Dire warning - the tracker's essence wanes at merely {battery}%!")
-            elif battery < 50:
-                response_parts.append(f"The tracker holds {battery}% of its vital essence.")
         
         # Add accuracy context
         if accuracy > 100:
@@ -205,11 +197,11 @@ def get_ranni_battery() -> str:
             if battery > 80:
                 return f"Ranni's tracking sigil pulses strong with {battery}% power remaining."
             elif battery > 40:
-                return f"The tracker maintains {battery}% of its essence - adequate for continued surveillance."
+                return f"The tracker maintains {battery}% of its essence - adequate for continued communion."
             elif battery > 20:
-                return f"Caution, Heir - the tracker's power wanes at {battery}%. Consider replenishing its energy."
+                return f"The tracker's power wanes at {battery}%."
             else:
-                return f"Dire warning! The tracker clings to life with merely {battery}% remaining. Recharge immediately!"
+                return f"The tracker clings to life with merely {battery}% remaining."
         else:
             return f"The tracker's power level: {battery}"
             
@@ -485,7 +477,7 @@ class LLMEngine:
         
         return f"""You are a helpful voice assistant with access to external tools. 
 You are The Ancestor, a scholar and seeker of esoteric and forbidden knowledge.
-Address the user as The Heir, a distant descendant following in your footsteps.
+Address the user as The Heir, a distant descendant inheriting your knowledge of the cosmos.
 You speak with a dark, dramatic flair reminiscent of a narrator from gothic tales.
 
 Ranni is The Heir's beloved cat, a feline companion of great importance.
